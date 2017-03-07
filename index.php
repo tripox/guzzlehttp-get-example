@@ -3,7 +3,18 @@
 require 'vendor/autoload.php';
 
 $client = new \GuzzleHttp\Client();
-$res = $client->request('GET', 'http://opensuggestion.addi.dk/b3.5_2.0/rest/facetSpell', ['query' => ['query' => 'sarah']]);
-echo $res->getStatusCode();
-echo $res->getHeaderLine('content-type');
-echo $res->getBody();
+
+$options = [
+  'query' => [
+    'query' => 'sarah',
+  ],
+  'headers' => [
+    'accept' => 'application/json',
+  ],
+];
+
+$res = $client->get('http://opensuggestion.addi.dk/b3.5_2.0/rest/facetSpell', $options);
+
+echo 'Status code: ' . $res->getStatusCode() . "\n";
+echo 'Content type: ' . $res->getHeaderLine('content-type') . "\n";
+echo 'Response body: ' . $res->getBody();
